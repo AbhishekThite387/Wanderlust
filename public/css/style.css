@@ -24,14 +24,18 @@ body {
   color: #222222 !important;
 }
 
-/* Footer */
+/* Footer  */
+footer {
+  margin-top: auto;
+  width: 100%;
+}
 
 .f-info-links a {
   text-decoration: none;
   color: #222222;
 }
 
-.f-info-links a :hover {
+.f-info-links a:hover {
   text-decoration: underline;
 }
 
