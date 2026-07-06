@@ -5,8 +5,6 @@ the MVC (Model-View-Controller) architecture.\
 Users can explore travel destinations, create listings, view maps, and
 manage their accounts securely.
 
-## <!-- # Test -->
-
 ## 🚀 Project Overview
 
 This project demonstrates:
