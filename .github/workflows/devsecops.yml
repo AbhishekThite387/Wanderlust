@@ -54,14 +54,39 @@ jobs:
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
       # ==========================
-      # SonarQube Quality Gate
+      # Install jq
       # ==========================
-      - name: SonarQube Quality Gate
-        uses: SonarSource/sonarqube-quality-gate-action@v1.2.0
-        timeout-minutes: 5
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      - name: Install jq
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+
+      # ==========================
+      # Wait for SonarQube Analysis
+      # ==========================
+      - name: Wait for SonarQube Analysis
+        run: sleep 15
+
+      # ==========================
+      # Check SonarQube Quality Gate
+      # ==========================
+      - name: Check SonarQube Quality Gate
+        run: |
+          PROJECT_KEY=wanderlust
+
+          STATUS=$(curl -s \
+            -u "${{ secrets.SONAR_TOKEN }}:" \
+            "${{ secrets.SONAR_HOST_URL }}/api/qualitygates/project_status?projectKey=$PROJECT_KEY" \
+            | jq -r '.projectStatus.status')
+
+          echo "Quality Gate Status: $STATUS"
+
+          if [ "$STATUS" != "OK" ]; then
+            echo "Quality Gate Failed!"
+            exit 1
+          fi
+
+          echo "Quality Gate Passed!"
 
       # ==========================
       # Download OWASP Dependency Check
@@ -70,6 +95,12 @@ jobs:
         run: |
           wget https://github.com/dependency-check/DependencyCheck/releases/download/v12.1.0/dependency-check-12.1.0-release.zip
           unzip dependency-check-12.1.0-release.zip
+
+      # ==========================
+      # Create Reports Directory
+      # ==========================
+      - name: Create Reports Directory
+        run: mkdir -p reports
 
       # ==========================
       # Run OWASP Dependency Check
