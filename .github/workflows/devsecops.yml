@@ -1,0 +1,96 @@
+name: DevSecOps Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  devsecops:
+    name: DevSecOps Pipeline
+    runs-on: ubuntu-latest
+
+    steps:
+      # ==========================
+      # Checkout Repository
+      # ==========================
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # ==========================
+      # Setup Java
+      # ==========================
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      # ==========================
+      # Setup Node.js
+      # ==========================
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # ==========================
+      # Install Dependencies
+      # ==========================
+      - name: Install Dependencies
+        run: npm ci
+
+      # ==========================
+      # SonarQube Scan
+      # ==========================
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
+      # ==========================
+      # SonarQube Quality Gate
+      # ==========================
+      - name: SonarQube Quality Gate
+        uses: SonarSource/sonarqube-quality-gate-action@v1.2.0
+        timeout-minutes: 5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
+      # ==========================
+      # Download OWASP Dependency Check
+      # ==========================
+      - name: Download OWASP Dependency Check
+        run: |
+          wget https://github.com/dependency-check/DependencyCheck/releases/download/v12.1.0/dependency-check-12.1.0-release.zip
+          unzip dependency-check-12.1.0-release.zip
+
+      # ==========================
+      # Run OWASP Dependency Check
+      # ==========================
+      - name: Run OWASP Dependency Check
+        run: |
+          chmod +x dependency-check/bin/dependency-check.sh
+
+          dependency-check/bin/dependency-check.sh \
+            --project "WanderLust" \
+            --scan . \
+            --format "HTML" \
+            --out reports \
+            --enableRetired \
+            --enableExperimental
+
+      # ==========================
+      # Upload OWASP Report
+      # ==========================
+      - name: Upload OWASP Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: OWASP-Dependency-Check-Report
+          path: reports/
