@@ -75,34 +75,42 @@
 ## ✨ Features
 
 ### 🔐 Authentication
+
 - User Signup
 - User Login
 - Logout
 
 ### 🏠 Listings
+
 - Create Listing
 - View Listings
 - Edit Listing
 - Delete Listing
 
 ### 💬 Reviews
+
 - Add Reviews
 - Delete Reviews
 
 ### 🗺️ Maps
+
 - Interactive maps using Leaflet.js
 
 ### 📱 Responsive Design
+
 - Fully responsive UI built with Bootstrap 5
 
 ### 🛡️ Security
+
 - Authentication & Authorization
 - Session Management
 
 ### 🐳 Containerization
+
 - Fully Dockerized application
 
 ### ⚙️ DevSecOps
+
 - SonarQube Static Code Analysis
 - SonarQube Quality Gate
 - Trivy Filesystem Scan
@@ -115,17 +123,17 @@
 
 ## 🛠️ Tech Stack
 
-| Category | Technologies |
-|---|---|
-| **Frontend** | HTML5, CSS3, Bootstrap 5, JavaScript, EJS, Leaflet.js, Font Awesome |
-| **Backend** | Node.js, Express.js |
-| **Database** | MongoDB Atlas, Mongoose |
-| **Authentication** | Passport.js, Express-Session, Connect-Flash |
-| **Containerization** | Docker |
-| **Code Quality** | SonarQube Community Edition |
-| **Security Scanning** | Trivy |
-| **CI** | GitHub Actions |
-| **Container Registry** | Docker Hub |
+| Category               | Technologies                                                        |
+| ---------------------- | ------------------------------------------------------------------- |
+| **Frontend**           | HTML5, CSS3, Bootstrap 5, JavaScript, EJS, Leaflet.js, Font Awesome |
+| **Backend**            | Node.js, Express.js                                                 |
+| **Database**           | MongoDB Atlas, Mongoose                                             |
+| **Authentication**     | Passport.js, Express-Session, Connect-Flash                         |
+| **Containerization**   | Docker                                                              |
+| **Code Quality**       | SonarQube Community Edition                                         |
+| **Security Scanning**  | Trivy                                                               |
+| **CI**                 | GitHub Actions                                                      |
+| **Container Registry** | Docker Hub                                                          |
 
 ---
 
@@ -133,11 +141,11 @@
 
 Wanderlust strictly follows the **Model–View–Controller** pattern.
 
-| Layer | Responsibility | Location |
-|---|---|---|
-| **Model** | Mongoose schemas & MongoDB data access | `models/`, `schema.js` |
-| **View** | EJS templates rendered to the client | `views/` |
-| **Controller** | Request handling & business logic | `controllers/`, `routes/` |
+| Layer          | Responsibility                         | Location                  |
+| -------------- | -------------------------------------- | ------------------------- |
+| **Model**      | Mongoose schemas & MongoDB data access | `models/`, `schema.js`    |
+| **View**       | EJS templates rendered to the client   | `views/`                  |
+| **Controller** | Request handling & business logic      | `controllers/`, `routes/` |
 
 ```mermaid
 flowchart LR
@@ -234,39 +242,48 @@ Wanderlust/
 ## ⚙️ Installation
 
 ### 1. Clone the repository
+
 ```bash
 git clone https://github.com/AbhishekThite387/Wanderlust.git
 cd Wanderlust
 ```
 
 ### 2. Install dependencies
+
 ```bash
 npm install
 ```
 
 ### 3. Configure environment variables
+
 Create a `.env` file in the root directory (see [Environment Variables](#-environment-variables)).
 
 ### 4. Run the application
+
 ```bash
 npm start
 ```
+
 or, for development with auto-reload:
+
 ```bash
 nodemon app.js
 ```
 
 The app will be available at:
+
 ```
 http://localhost:8080
 ```
 
 ### 5. Build the Docker image
+
 ```bash
 docker build -t wanderlust .
 ```
 
 ### 6. Run the container
+
 ```bash
 docker run -p 8080:8080 --env-file .env wanderlust
 ```
@@ -275,10 +292,10 @@ docker run -p 8080:8080 --env-file .env wanderlust
 
 ## 🔑 Environment Variables
 
-| Variable | Description |
-|---|---|
-| `ATLASDB_URL` | MongoDB Atlas connection string |
-| `SECRET` | Session secret used by `express-session` |
+| Variable      | Description                              |
+| ------------- | ---------------------------------------- |
+| `ATLASDB_URL` | MongoDB Atlas connection string          |
+| `SECRET`      | Session secret used by `express-session` |
 
 > ⚠️ Never commit your `.env` file. It is already excluded via `.gitignore`.
 
@@ -309,22 +326,22 @@ docker pull <dockerhub-username>/wanderlust:latest
 
 The pipeline is defined in [`.github/workflows/devsecops.yml`](.github/workflows/devsecops.yml) and runs automatically on every push.
 
-| Step | Purpose |
-|---|---|
-| **Checkout Repository** | Pulls the latest source code into the runner |
-| **Setup Java** | Provisions the JVM required to run the SonarQube scanner |
-| **Setup Node.js** | Installs the Node.js runtime for the application |
-| **Install Dependencies** | Runs `npm install` to resolve project packages |
-| **SonarQube Scan** | Performs static code analysis for bugs and code smells |
-| **Quality Gate** | Fails the pipeline if code doesn't meet defined quality thresholds |
-| **Install Trivy** | Sets up the Trivy vulnerability scanner |
-| **Trivy Filesystem Scan** | Scans the source tree and dependencies for known CVEs |
-| **Docker Build** | Builds the application's Docker image |
-| **Image Scan** | Scans the built image for vulnerabilities with Trivy |
-| **Upload Reports** | Stores Trivy scan results as pipeline artifacts |
-| **Docker Login** | Authenticates with Docker Hub |
-| **Docker Tag** | Tags the built image appropriately |
-| **Docker Push** | Publishes the image to Docker Hub |
+| Step                      | Purpose                                                            |
+| ------------------------- | ------------------------------------------------------------------ |
+| **Checkout Repository**   | Pulls the latest source code into the runner                       |
+| **Setup Java**            | Provisions the JVM required to run the SonarQube scanner           |
+| **Setup Node.js**         | Installs the Node.js runtime for the application                   |
+| **Install Dependencies**  | Runs `npm install` to resolve project packages                     |
+| **SonarQube Scan**        | Performs static code analysis for bugs and code smells             |
+| **Quality Gate**          | Fails the pipeline if code doesn't meet defined quality thresholds |
+| **Install Trivy**         | Sets up the Trivy vulnerability scanner                            |
+| **Trivy Filesystem Scan** | Scans the source tree and dependencies for known CVEs              |
+| **Docker Build**          | Builds the application's Docker image                              |
+| **Image Scan**            | Scans the built image for vulnerabilities with Trivy               |
+| **Upload Reports**        | Stores Trivy scan results as pipeline artifacts                    |
+| **Docker Login**          | Authenticates with Docker Hub                                      |
+| **Docker Tag**            | Tags the built image appropriately                                 |
+| **Docker Push**           | Publishes the image to Docker Hub                                  |
 
 ---
 
@@ -339,27 +356,66 @@ The pipeline is defined in [`.github/workflows/devsecops.yml`](.github/workflows
 
 ## 📸 Screenshots
 
-| Home | Listing Page |
-|---|---|
-| _Add screenshot here_ | _Add screenshot here_ |
+### 🏠 Home Page
 
-| Login | Signup |
-|---|---|
-| _Add screenshot here_ | _Add screenshot here_ |
+<p align="center">
+  <img src="screenshots/home.png" width="900">
+</p>
 
-| GitHub Actions | Docker Hub |
-|---|---|
-| _Add screenshot here_ | _Add screenshot here_ |
+---
 
-| SonarQube Dashboard | Trivy Report |
-|---|---|
-| _Add screenshot here_ | _Add screenshot here_ |
+### 🔍 Listing Details
+
+<p align="center">
+  <img src="screenshots/details.png" width="900">
+</p>
+
+---
+
+### 🔐 Signup Page
+
+<p align="center">
+  <img src="screenshots/signup.png" width="900">
+</p>
+
+---
+
+### 🔍 Map & Reviews Details
+
+<p align="center">
+  <img src="screenshots/map.png" width="900">
+</p>
+
+---
+
+### ⚙️ GitHub Actions CI Pipeline
+
+<p align="center">
+  <img src="screenshots/github-actions.png" width="900">
+</p>
+
+---
+
+### 📊 SonarQube Dashboard
+
+<p align="center">
+  <img src="screenshots/sonarqube.png" width="900">
+</p>
+
+---
+
+### 🛡️ Trivy Scan Report
+
+<p align="center">
+  <img src="screenshots/trivy.png" width="900">
+</p>
 
 ---
 
 ## 🗺️ Future Roadmap
 
 **Completed**
+
 - [x] Full Stack Application (MVC Architecture)
 - [x] Authentication & Session Management
 - [x] Dockerized Application
@@ -369,9 +425,11 @@ The pipeline is defined in [`.github/workflows/devsecops.yml`](.github/workflows
 - [x] Docker Hub Image Push
 
 **Current**
-- [ ] 🚧 AWS EC2 Deployment (CD) — *In Progress*
+
+- [ ] 🚧 AWS EC2 Deployment (CD) — _In Progress_
 
 **Future**
+
 - [ ] Nginx Reverse Proxy
 - [ ] Docker Compose based multi-service setup
 - [ ] HTTPS / SSL

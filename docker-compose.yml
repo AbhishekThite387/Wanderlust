@@ -1,6 +1,6 @@
 services:
   wanderlust:
-    image: abhishekthite09/wanderlust:v1
+    image: abhishekthite09/wanderlust:latest
     container_name: wanderlust-app
 
     ports:
