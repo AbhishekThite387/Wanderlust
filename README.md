@@ -28,7 +28,7 @@
 
 ## 🏛️ DevSecOps + GitOps Architecture
 
-<p align="center"><img src="screenshots/devsecops-gitops-flow.svg" width="900"></p>,
+<p align="center"><img src="screenshots/architecture.svg" width="900"></p>,
 
 ---
 
