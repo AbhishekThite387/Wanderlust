@@ -1,5 +1,8 @@
 name: DevSecOps Pipeline
 
+permissions:
+  contents: write
+
 on:
   push:
     branches:
@@ -48,7 +51,7 @@ jobs:
       # SonarQube Scan
       # ==========================
       - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v5
+        uses: SonarSource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
@@ -124,7 +127,10 @@ jobs:
       # ==========================================
       - name: Build Docker Image
         run: |
-          docker build -t wanderlust:latest .
+          docker build \
+            -t ${{ secrets.DOCKER_USERNAME }}/wanderlust:${{ github.sha }} \
+            -t ${{ secrets.DOCKER_USERNAME }}/wanderlust:latest \
+          .
 
       # ==========================================
       # Trivy Docker Image Scan
@@ -135,7 +141,7 @@ jobs:
           --severity HIGH,CRITICAL \
           --format table \
           --output trivy-reports/image-report.txt \
-          wanderlust:latest
+          ${{ secrets.DOCKER_USERNAME }}/wanderlust:${{ github.sha }}
 
       # ==========================================
       # Login to Docker Hub
@@ -146,24 +152,13 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # ==========================================
-      # Tag Docker Image
-      # ==========================================
-      - name: Tag Docker Image
-        run: |
-          docker tag wanderlust:latest \
-          ${{ secrets.DOCKER_USERNAME }}/wanderlust:latest
-
-          docker tag wanderlust:latest \
-          ${{ secrets.DOCKER_USERNAME }}/wanderlust:${{ github.sha }}
 
       # ==========================================
       # Push Docker Image
       # ==========================================
       - name: Push Docker Image
         run: |
-          docker push \
-          ${{ secrets.DOCKER_USERNAME }}/wanderlust:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/wanderlust:latest
           docker push ${{ secrets.DOCKER_USERNAME }}/wanderlust:${{ github.sha }}
 
       # ==========================================
@@ -175,3 +170,16 @@ jobs:
         with:
           name: Trivy-Reports
           path: trivy-reports/
+
+      - name: Update Helm Image Tag
+        run: |
+          sed -i 's/tag: .*/tag: "${{ github.sha }}"/' helm/wanderlust/values.yaml
+
+
+      - name: Commit Helm Image Tag
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add helm/wanderlust/values.yaml
+          git commit -m "Update image tag to ${{ github.sha }} [skip ci]"
+          git push
