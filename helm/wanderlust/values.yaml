@@ -165,7 +165,8 @@ config:
   cloudName: your_cloudinary_name
 
 secret:
-  atlasDbUrl: your_mongodb_connection_string
-  sessionSecret: your_session_secret
-  cloudApiKey: your_cloudinary_api_key
-  cloudApiSecret: your_cloudinary_api_secret
+  create: false
+  atlasDbUrl: ""
+  sessionSecret: ""
+  cloudApiKey: ""
+  cloudApiSecret: ""
