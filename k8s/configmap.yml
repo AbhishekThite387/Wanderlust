@@ -1,0 +1,10 @@
+apiVersion: v1
+
+kind: ConfigMap
+
+metadata:
+  name: wanderlust-config
+  namespace: wanderlust
+
+data:
+  CLOUD_NAME: "your_cloudinary_name"
