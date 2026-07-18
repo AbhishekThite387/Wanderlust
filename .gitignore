@@ -1,2 +1,12 @@
 .env
 node_modules/
+# Helm Secrets
+helm/wanderlust/secrets-values.yaml
+
+# Terraform
+terraform/.terraform/
+terraform/*.tfstate
+terraform/*.tfstate.*
+.terraform/
+*.tfstate
+*.tfstate.*
