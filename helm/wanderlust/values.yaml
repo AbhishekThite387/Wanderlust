@@ -10,7 +10,7 @@ image:
   repository: abhishekthite09/wanderlust
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "0d0652eb2ddac8db01c954ff46c55abaee45e176"
+  tag: "15f1bbc0144e6d27e25da6507d9deeed540aa1bd"
 
 # This is for the secrets for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
 imagePullSecrets: []
