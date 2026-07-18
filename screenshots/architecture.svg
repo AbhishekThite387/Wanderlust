@@ -1,0 +1,196 @@
+<svg viewBox="0 0 1200 480" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9aa5b1"/>
+    </marker>
+    <style>
+      .box { fill: #10151c; stroke: #2b3542; stroke-width: 1.5; }
+      .node-label { fill: #e6edf3; font-size: 13px; text-anchor: middle; }
+      .sub-label { fill: #8b98a5; font-size: 10px; text-anchor: middle; }
+      .lane-label { fill: #6e7f91; font-size: 12px; font-weight: 600; }
+      .lane-box { fill: none; stroke: #33404d; stroke-width: 1.2; stroke-dasharray: 4 4; }
+      .flow-line { stroke: #3a4553; stroke-width: 1.5; fill: none; }
+      .dot { fill: #58a6ff; }
+      .glow circle.icon-bg { animation: pulse 6.4s linear infinite; }
+      @keyframes pulse {
+        0%, 90%, 100% { filter: none; }
+        3% { filter: drop-shadow(0 0 6px #58a6ff); }
+      }
+      .n1 .icon-bg { animation-delay: 0.0s; }
+      .n2 .icon-bg { animation-delay: 0.4s; }
+      .n3 .icon-bg { animation-delay: 0.8s; }
+      .n4 .icon-bg { animation-delay: 1.2s; }
+      .n5 .icon-bg { animation-delay: 1.6s; }
+      .n6 .icon-bg { animation-delay: 2.0s; }
+      .n7 .icon-bg { animation-delay: 2.4s; }
+      .n8 .icon-bg { animation-delay: 2.8s; }
+      .n9 .icon-bg { animation-delay: 3.4s; }
+      .n10 .icon-bg { animation-delay: 3.8s; }
+      .n11 .icon-bg { animation-delay: 4.2s; }
+      .n12 .icon-bg { animation-delay: 4.6s; }
+      .n13 .icon-bg { animation-delay: 5.0s; }
+      .n14 .icon-bg { animation-delay: 5.4s; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="480" fill="#0b0f14"/>
+
+  <!-- Lane boxes -->
+  <rect x="20" y="30" width="1160" height="200" rx="10" class="lane-box"/>
+  <text x="36" y="52" class="lane-label">CI — GitHub Actions · SonarQube · Trivy · Docker</text>
+
+  <rect x="20" y="260" width="1160" height="190" rx="10" class="lane-box"/>
+  <text x="36" y="282" class="lane-label">CD (GitOps) — Helm · ArgoCD · Amazon EKS</text>
+
+  <!-- ===================== CI ROW ===================== -->
+  <!-- positions -->
+  <!-- Developer -->
+  <g class="n1">
+    <circle cx="90" cy="140" r="26" class="box icon-bg"/>
+    <text x="90" y="146" class="node-label" font-size="18">🧑‍💻</text>
+    <text x="90" y="185" class="node-label">Developer</text>
+    <text x="90" y="200" class="sub-label">push code</text>
+  </g>
+
+  <path d="M116,140 H180" class="flow-line" marker-end="url(#arrow)"/>
+
+  <!-- GitHub -->
+  <g class="n2">
+    <circle cx="210" cy="140" r="26" class="box icon-bg"/>
+    <text x="210" y="146" class="node-label" font-size="18">🐙</text>
+    <text x="210" y="185" class="node-label">GitHub</text>
+    <text x="210" y="200" class="sub-label">main branch</text>
+  </g>
+
+  <path d="M236,140 H300" class="flow-line" marker-end="url(#arrow)"/>
+
+  <!-- GitHub Actions -->
+  <g class="n3">
+    <circle cx="330" cy="140" r="26" class="box icon-bg"/>
+    <text x="330" y="146" class="node-label" font-size="18">⚙️</text>
+    <text x="330" y="185" class="node-label">GitHub Actions</text>
+    <text x="330" y="200" class="sub-label">CI triggered</text>
+  </g>
+
+  <path d="M356,140 H420" class="flow-line" marker-end="url(#arrow)"/>
+
+  <!-- SonarQube -->
+  <g class="n4">
+    <circle cx="450" cy="140" r="26" class="box icon-bg"/>
+    <text x="450" y="146" class="node-label" font-size="18">📊</text>
+    <text x="450" y="185" class="node-label">SonarQube</text>
+    <text x="450" y="200" class="sub-label">static analysis</text>
+  </g>
+
+  <path d="M476,140 H540" class="flow-line" marker-end="url(#arrow)"/>
+
+  <!-- Quality Gate -->
+  <g class="n5">
+    <circle cx="570" cy="140" r="26" class="box icon-bg"/>
+    <text x="570" y="146" class="node-label" font-size="18">✅</text>
+    <text x="570" y="185" class="node-label">Quality Gate</text>
+  </g>
+
+  <path d="M596,140 H660" class="flow-line" marker-end="url(#arrow)"/>
+
+  <!-- Trivy FS -->
+  <g class="n6">
+    <circle cx="690" cy="140" r="26" class="box icon-bg"/>
+    <text x="690" y="146" class="node-label" font-size="18">🛡️</text>
+    <text x="690" y="185" class="node-label">Trivy</text>
+    <text x="690" y="200" class="sub-label">filesystem scan</text>
+  </g>
+
+  <path d="M716,140 H780" class="flow-line" marker-end="url(#arrow)"/>
+
+  <!-- Docker Build -->
+  <g class="n7">
+    <circle cx="810" cy="140" r="26" class="box icon-bg"/>
+    <text x="810" y="146" class="node-label" font-size="18">🐳</text>
+    <text x="810" y="185" class="node-label">Docker Build</text>
+  </g>
+
+  <path d="M836,140 H900" class="flow-line" marker-end="url(#arrow)"/>
+
+  <!-- Trivy Image -->
+  <g class="n8">
+    <circle cx="930" cy="140" r="26" class="box icon-bg"/>
+    <text x="930" y="146" class="node-label" font-size="18">🛡️</text>
+    <text x="930" y="185" class="node-label">Trivy</text>
+    <text x="930" y="200" class="sub-label">image scan</text>
+  </g>
+
+  <path d="M956,140 H1020" class="flow-line" marker-end="url(#arrow)"/>
+
+  <!-- Docker Hub -->
+  <g class="n9">
+    <circle cx="1050" cy="140" r="26" class="box icon-bg"/>
+    <text x="1050" y="146" class="node-label" font-size="18">📦</text>
+    <text x="1050" y="185" class="node-label">Docker Hub</text>
+    <text x="1050" y="200" class="sub-label">image:sha</text>
+  </g>
+
+  <!-- traveling dot across CI row -->
+  <circle r="4" class="dot">
+    <animateMotion dur="6.4s" repeatCount="indefinite"
+      path="M90,140 H1050" keyTimes="0;1" keySplines="0.4 0 0.6 1" calcMode="linear"/>
+  </circle>
+
+  <!-- ===================== connector CI -> CD ===================== -->
+  <path d="M1050,166 V210 Q1050,230 1020,230 H180 Q150,230 150,250 V260"
+        class="flow-line" marker-end="url(#arrow)"/>
+  <text x="600" y="245" class="sub-label">update Helm values.yaml (image tag = git SHA) and commit</text>
+
+  <!-- ===================== CD ROW ===================== -->
+  <!-- GitHub (commit) -->
+  <g class="n10">
+    <circle cx="150" cy="345" r="26" class="box icon-bg"/>
+    <text x="150" y="351" class="node-label" font-size="18">🐙</text>
+    <text x="150" y="390" class="node-label">GitHub</text>
+    <text x="150" y="405" class="sub-label">Helm tag updated</text>
+  </g>
+
+  <path d="M176,345 H320" class="flow-line" marker-end="url(#arrow)"/>
+
+  <!-- ArgoCD -->
+  <g class="n11">
+    <circle cx="350" cy="345" r="26" class="box icon-bg"/>
+    <text x="350" y="351" class="node-label" font-size="18">🔄</text>
+    <text x="350" y="390" class="node-label">ArgoCD</text>
+    <text x="350" y="405" class="sub-label">detects change</text>
+  </g>
+
+  <path d="M376,345 H520" class="flow-line" marker-end="url(#arrow)"/>
+
+  <!-- Helm sync -->
+  <g class="n12">
+    <circle cx="550" cy="345" r="26" class="box icon-bg"/>
+    <text x="550" y="351" class="node-label" font-size="18">⛵</text>
+    <text x="550" y="390" class="node-label">Helm</text>
+    <text x="550" y="405" class="sub-label">auto sync</text>
+  </g>
+
+  <path d="M576,345 H720" class="flow-line" marker-end="url(#arrow)"/>
+
+  <!-- EKS -->
+  <g class="n13">
+    <circle cx="750" cy="345" r="26" class="box icon-bg"/>
+    <text x="750" y="351" class="node-label" font-size="18">☸️</text>
+    <text x="750" y="390" class="node-label">Amazon EKS</text>
+    <text x="750" y="405" class="sub-label">rolling update</text>
+  </g>
+
+  <path d="M776,345 H920" class="flow-line" marker-end="url(#arrow)"/>
+
+  <!-- Live -->
+  <g class="n14">
+    <circle cx="950" cy="345" r="26" class="box icon-bg"/>
+    <text x="950" y="351" class="node-label" font-size="18">🚀</text>
+    <text x="950" y="390" class="node-label">App Live</text>
+  </g>
+
+  <circle r="4" class="dot">
+    <animateMotion dur="6.4s" repeatCount="indefinite" begin="3.4s"
+      path="M150,345 H950" keyTimes="0;1" keySplines="0.4 0 0.6 1" calcMode="linear"/>
+  </circle>
+</svg>

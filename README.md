@@ -26,6 +26,12 @@
 
 ---
 
+## 🏛️ DevSecOps + GitOps Architecture
+
+<p align="center"><img src="screenshots/devsecops-gitops-flow.svg" width="900"></p>,
+
+---
+
 ## 📖 Table of Contents
 
 - [Project Overview](#-project-overview)
@@ -153,51 +159,6 @@ In short: **Git is the source of truth.** A developer only needs to push code �
 
 ---
 
-## 🏛️ DevSecOps + GitOps Architecture
-
-### Diagram 1 — High-Level Architecture
-
-```mermaid
-flowchart TD
-    Dev[Developer] --> Git[GitHub Repository]
-    Git --> CI[GitHub Actions CI]
-    CI --> DH[(Docker Hub)]
-    CI --> HelmUpdate[Update Helm values.yaml with Git SHA]
-    HelmUpdate --> Git
-
-    Git --> ArgoCD[ArgoCD GitOps]
-    ArgoCD --> Helm[Helm Chart]
-    Helm --> EKS[Amazon EKS Cluster]
-    EKS --> Users[End Users via LoadBalancer]
-
-    TF[Terraform] --> VPC[AWS VPC]
-    VPC --> EKS
-```
-
-### Diagram 2 — Detailed CI/CD & Deployment Workflow
-
-```mermaid
-flowchart TD
-    A[Developer Push to main] --> B[GitHub Actions Triggered]
-    B --> C[Install Dependencies]
-    C --> D[SonarQube Static Analysis]
-    D --> E[SonarQube Quality Gate]
-    E --> F[Trivy Filesystem Scan]
-    F --> G[Docker Image Build]
-    G --> H[Trivy Docker Image Scan]
-    H --> I[Push Image to Docker Hub - SHA tag]
-    I --> J[Update Helm values.yaml image tag]
-    J --> K[GitHub Actions Bot Commits Change]
-    K --> L[ArgoCD Detects Git Change]
-    L --> M[ArgoCD Auto Sync]
-    M --> N[Helm Deploys to Amazon EKS]
-    N --> O[Kubernetes Rolling Update]
-    O --> P[New Pods Created]
-    P --> Q[Old Pods Terminated]
-    Q --> R[Updated Application Live]
-```
-
----
 
 ## 🔁 CI/CD Pipeline Explained
 
